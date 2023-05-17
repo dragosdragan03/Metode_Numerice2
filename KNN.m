@@ -32,11 +32,18 @@ function prediction = KNN (labels, Y, test, k)
   
   % TODO: pentru fiecare rand calculati distanta Euclidiana dintre acesta si
   % vectorul de test primit ca argument.
+  delta = Y - test;
+  suma = sum(delta .^ 2, 2);
+  distance = sqrt(suma);
   
   % TODO: ordonati crescator distantele si tineti minte intr-un vector primele
   % k valori care reprezinta valorile adevarate ale acestor imagini care s-au
   % dovedit a fi cele mai apropiate.
   % Hint [~,aux] = sort (...)
+  [~ , sorted] = sort(distance, 'ascend'); % am sortat vectorul de distante
+  sorted = sorted(1 : k); % retin primele k valori sortate
+  aux = labels(sorted);
   
   % TODO: calculati predictia ca mediana celor k valori cele mai apropiate.
+  prediction = median(aux);
 endfunction
